@@ -8,30 +8,25 @@
 import UIKit
 
 final class RMCharacterViewController: UIViewController {
+    
+    private let charactersListView = RMCharactersListView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .systemBackground
         title = "Characters"
-        
-        let request = RMRequest(endpoint: .character, pathComponents: ["1"], queryParameters: [
-            URLQueryItem(name: "name", value: "rick"),
-            URLQueryItem(name: "status", value: "alive")
-        ])
-        
-        print(request.url)
+        setUpView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setUpView() {
+        view.addSubview(charactersListView)
+        
+        NSLayoutConstraint.activate([
+            charactersListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            charactersListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            charactersListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            charactersListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+        ])
     }
-    */
-
 }
