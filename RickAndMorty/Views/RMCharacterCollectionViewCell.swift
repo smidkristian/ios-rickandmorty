@@ -2,7 +2,7 @@
 //  RMCharacterCollectionViewCell.swift
 //  RickAndMorty
 //
-//  Created by Kristián Šmíd on 16.04.2025.
+//  Created by Kristián Šmíd on 16.04.2027.
 //
 
 import UIKit
@@ -12,7 +12,13 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
+        
+        // make only top corners rounded
+        imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -21,7 +27,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
-        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -30,7 +36,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
     private let statusLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
-        label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.font = .systemFont(ofSize: 14, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -43,6 +49,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .secondarySystemBackground
         contentView.addSubviews(imageView, nameLabel, statusLabel)
         addConstraints()
+        setUpLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -51,23 +58,36 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
 
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            statusLabel.heightAnchor.constraint(equalToConstant: 35),
-            nameLabel.heightAnchor.constraint(equalToConstant: 35),
+            statusLabel.heightAnchor.constraint(equalToConstant: 25),
+            nameLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
-            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
-            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 5),
-            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5),
+            statusLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 7.5),
+            statusLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.5),
+            nameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 7.5),
+            nameLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7.5),
             
             statusLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: -5),
+            nameLabel.bottomAnchor.constraint(equalTo: statusLabel.topAnchor, constant: 5),
             
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -5),
             imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor)
         ])
         
+    }
+    
+    // when switching from light/dark mode we need to run the setUpLayer function
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        setUpLayer()
+    }
+    
+    private func setUpLayer() {
+        contentView.layer.cornerRadius = 8
+        contentView.layer.shadowColor = UIColor.secondaryLabel.cgColor
+        contentView.layer.shadowOffset = CGSize(width: 4, height: 4)
+        contentView.layer.shadowOpacity = 0.2
     }
     
     override func prepareForReuse() {
