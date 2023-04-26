@@ -17,4 +17,8 @@ class RMCharacterDetailViewViewModel {
     public var title: String {
         character.name
     }
+    
+    public var image: String {
+        character.name
+    }
 }
