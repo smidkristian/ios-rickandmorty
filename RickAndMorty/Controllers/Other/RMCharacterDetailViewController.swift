@@ -10,8 +10,11 @@ import UIKit
 class RMCharacterDetailViewController: UIViewController {
     private let viewModel: RMCharacterDetailViewViewModel
     
+    private let detailView: RMCharacterDetailView
+    
     init(viewModel: RMCharacterDetailViewViewModel) {
         self.viewModel = viewModel
+        self.detailView = RMCharacterDetailView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,5 +29,62 @@ class RMCharacterDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         title = viewModel.title
+        
+        view.addSubview(detailView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTabShare))
+        
+        addConstraints()
+        
+        detailView.collectionView?.delegate = self
+        detailView.collectionView?.dataSource = self
+    }
+    
+    @objc
+    private func didTabShare() {
+        print("Yohoo")
+    }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            detailView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+        ])
+    }
+}
+
+// MARK: - CollectionView
+
+extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+            case 0:
+                return 1
+            case 1:
+                return 8
+            case 2:
+                return 20
+            default:
+                return 1
+            }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            cell.backgroundColor = .systemCyan
+        } else if indexPath.section == 1 {
+            cell.backgroundColor = .systemTeal
+        } else {
+            cell.backgroundColor = .systemMint
+        }
+        
+        return cell
     }
 }

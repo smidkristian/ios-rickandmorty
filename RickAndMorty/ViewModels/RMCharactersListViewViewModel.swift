@@ -1,8 +1,5 @@
 //
-//  CharactersListViewViewModel.swift
-//  RickAndMorty
-//
-//  Created by Kristián Šmíd on 12.04.2023.
+//  CHARACTER - LIST - VIEW - VIEW - MODEL
 //
 
 import UIKit
@@ -42,22 +39,27 @@ final class RMCharactersListViewViewModel: NSObject {
         RMService.shared.execute(.listCharactersRequest,
                                  expecting: RMGetAllCharactersResponse.self
         ) { [weak self] result in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
             switch result {
                 
-            case .success(let responseModel):
-                let results = responseModel.results
-                let info = responseModel.info
-                
-                self?.characters = results
-                self?.apiInfo = info
-                
-                DispatchQueue.main.async {
-                    self?.delegate?.didLoadInitialCharacters()
+                case .success(let responseModel):
+                    let results = responseModel.results
+                    let info = responseModel.info
+                    
+                    strongSelf.characters = results
+                    strongSelf.apiInfo = info
+                    
+                    DispatchQueue.main.async {
+                        strongSelf.delegate?.didLoadInitialCharacters()
+                    }
+                    
+                case .failure(let error):
+                    print(String(describing: error))
                 }
-                
-            case .failure(let error):
-                print(String(describing: error))
-            }
         }
     }
     
@@ -128,10 +130,12 @@ extension RMCharactersListViewViewModel: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionFooter, let footer = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind, withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier,
-            for: indexPath
-        ) as? RMFooterLoadingCollectionReusableView else {
+        guard kind == UICollectionView.elementKindSectionFooter,
+              let footer = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: RMFooterLoadingCollectionReusableView.identifier,
+                for: indexPath
+              ) as? RMFooterLoadingCollectionReusableView else {
             fatalError("Unsupported")
         }
         footer.startAnimating()
