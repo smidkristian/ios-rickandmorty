@@ -14,7 +14,7 @@ final class RMCharacterCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 12
         
         // make only top corners rounded
         imageView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
