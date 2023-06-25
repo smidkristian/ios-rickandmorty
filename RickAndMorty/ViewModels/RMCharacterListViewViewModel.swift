@@ -1,18 +1,14 @@
-//
-//  CHARACTER - LIST - VIEW - VIEW - MODEL
-//
-
 import UIKit
 
-protocol RMCharactersListViewViewModelDelegate: AnyObject {
+protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
     func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
     func didSelectCharacter(_ character: RMCharacter)
 }
 
-final class RMCharactersListViewViewModel: NSObject {
+final class RMCharacterListViewViewModel: NSObject {
     
-    public weak var delegate: RMCharactersListViewViewModelDelegate?
+    public weak var delegate: RMCharacterListViewViewModelDelegate?
     
     private var isLoadingMoreCharacters = false
     
@@ -114,7 +110,7 @@ final class RMCharactersListViewViewModel: NSObject {
     
 }
 
-extension RMCharactersListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellViewModels.count
     }
@@ -167,7 +163,7 @@ extension RMCharactersListViewViewModel: UICollectionViewDataSource, UICollectio
 
 // MARK: - ScrollView
 
-extension RMCharactersListViewViewModel: UIScrollViewDelegate {
+extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard shouldShowLoadMoreIndicator,
               !isLoadingMoreCharacters,

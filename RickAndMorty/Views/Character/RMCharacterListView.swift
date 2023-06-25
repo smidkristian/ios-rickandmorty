@@ -1,21 +1,14 @@
-//
-//  CharactersListView.swift
-//  RickAndMorty
-//
-//  Created by Kristián Šmíd on 12.04.2023.
-//
-
 import UIKit
 
-protocol RMCharactersListViewDelegate: AnyObject {
-    func rmCharactersListView(_ characterListView: RMCharactersListView, didSelectCharacter character: RMCharacter)
+protocol RMCharacterListViewDelegate: AnyObject {
+    func rmCharacterListView(_ characterListView: RMCharacterListView, didSelectCharacter character: RMCharacter)
 }
 
-final class RMCharactersListView: UIView {
+final class RMCharacterListView: UIView {
     
-    public weak var delegate: RMCharactersListViewDelegate?
+    public weak var delegate: RMCharacterListViewDelegate?
     
-    private let viewModel = RMCharactersListViewViewModel()
+    private let viewModel = RMCharacterListViewViewModel()
     
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -83,9 +76,9 @@ final class RMCharactersListView: UIView {
     }
 }
 
-extension RMCharactersListView: RMCharactersListViewViewModelDelegate {
+extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
     func didSelectCharacter(_ character: RMCharacter) {
-        delegate?.rmCharactersListView(self, didSelectCharacter: character)
+        delegate?.rmCharacterListView(self, didSelectCharacter: character)
     }
     
     func didLoadInitialCharacters() {

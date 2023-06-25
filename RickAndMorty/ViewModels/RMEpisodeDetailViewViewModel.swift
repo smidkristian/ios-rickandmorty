@@ -1,10 +1,3 @@
-//
-//  RMEpisodeDetailViewViewModel.swift
-//  RickAndMorty
-//
-//  Created by Kristián Šmíd on 12.06.2023.
-//
-
 import UIKit
 
 class RMEpisodeDetailViewViewModel {

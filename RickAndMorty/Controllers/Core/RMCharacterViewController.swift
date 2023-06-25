@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RMCharacterViewController: UIViewController, RMCharactersListViewDelegate {
+final class RMCharacterViewController: UIViewController, RMCharacterListViewDelegate {
     
-    private let charactersListView = RMCharactersListView()
+    private let characterListView = RMCharacterListView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,20 +20,20 @@ final class RMCharacterViewController: UIViewController, RMCharactersListViewDel
     }
     
     private func setUpView() {
-        charactersListView.delegate = self
-        view.addSubview(charactersListView)
+        characterListView.delegate = self
+        view.addSubview(characterListView)
         
         NSLayoutConstraint.activate([
-            charactersListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            charactersListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            charactersListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            charactersListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
+            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            characterListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
     }
     
     // MARK: - RMCharacterListViewDelegate
     
-    func rmCharactersListView(_ characterListView: RMCharactersListView,
+    func rmCharacterListView(_ characterListView: RMCharacterListView,
                               didSelectCharacter character: RMCharacter) {
         let viewModel = RMCharacterDetailViewViewModel(character: character)
         let detailVC = RMCharacterDetailViewController(viewModel: viewModel)

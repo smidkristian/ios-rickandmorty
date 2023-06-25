@@ -1,10 +1,3 @@
-//
-//  RMRequest.swift
-//  RickAndMorty
-//
-//  Created by Kristián Šmíd on 10.04.2023.
-//
-
 import Foundation
 
 final class RMRequest {
@@ -104,4 +97,5 @@ final class RMRequest {
 
 extension RMRequest {
     static let listCharactersRequest = RMRequest(endpoint: .character)
+    static let listEpisodesRequest = RMRequest(endpoint: .episode)
 }
