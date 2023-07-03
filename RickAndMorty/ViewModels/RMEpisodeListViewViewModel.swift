@@ -15,7 +15,7 @@ final class RMEpisodeListViewViewModel: NSObject {
         didSet {
             for episode in episodes {
                 let viewModel = RMCharacterEpisodeCollectionViewCellViewModel(
-                    episodeDataUrl: URL(string: episode.url)
+                    episodeDataUrl: URL(string: episode.url), options: RMCharacterEpisodeCollectionViewCellOptions(backgroundColor: .secondarySystemBackground)
                 )
                 if !cellViewModels.contains(viewModel) {
                     cellViewModels.append(viewModel)
@@ -145,9 +145,9 @@ extension RMEpisodeListViewViewModel: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
-        let width = (bounds.width - 30) / 2
+        let width = (bounds.width - 20)
         
-        return CGSize(width: width, height: width * 0.75)
+        return CGSize(width: width, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

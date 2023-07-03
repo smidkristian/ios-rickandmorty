@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol RMEpisodeDataRender {
     var episode: String { get }
@@ -6,9 +6,15 @@ protocol RMEpisodeDataRender {
     var air_date: String { get }
 }
 
+struct RMCharacterEpisodeCollectionViewCellOptions {
+    var backgroundColor: UIColor?
+}
+
 final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable, Equatable {
     private let episodeDataUrl: URL?
     private var dataBlock: ((RMEpisodeDataRender) -> Void)?
+    
+    public var backgroundColor: UIColor?
     
     private var episode: RMEpisode? {
         didSet {
@@ -22,8 +28,9 @@ final class RMCharacterEpisodeCollectionViewCellViewModel: Hashable, Equatable {
     
     // MARK: - Init
     
-    init(episodeDataUrl: URL?) {
+    init(episodeDataUrl: URL?, options: RMCharacterEpisodeCollectionViewCellOptions? = nil) {
         self.episodeDataUrl = episodeDataUrl
+        self.backgroundColor = options?.backgroundColor
     }
     
     // MARK: - Public

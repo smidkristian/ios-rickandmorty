@@ -6,7 +6,7 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .systemBackground
         title = "Episodes"
         setUpView()
@@ -22,6 +22,16 @@ final class RMEpisodeViewController: UIViewController, RMEpisodeListViewDelegate
             episodeListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             episodeListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor)
         ])
+        
+        addSearchButton()
+    }
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(didTapSearch))
+    }
+    
+    @objc
+    private func didTapSearch() {
+        print("Yohoo")
     }
     
     // MARK: - RMEpisodeListViewDelegate

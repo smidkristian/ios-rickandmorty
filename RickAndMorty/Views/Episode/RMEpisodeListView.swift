@@ -72,7 +72,6 @@ final class RMEpisodeListView: UIView {
     private func setUpCollectionView() {
         collectionView.dataSource = viewModel
         collectionView.delegate = viewModel
-        
     }
 }
 

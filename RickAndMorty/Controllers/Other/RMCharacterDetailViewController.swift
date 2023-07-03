@@ -27,20 +27,21 @@ class RMCharacterDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         title = viewModel.title
-        
         view.addSubview(detailView)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTabShare))
-        
         addConstraints()
+        addShareButton()
         
         detailView.collectionView?.delegate = self
         detailView.collectionView?.dataSource = self
     }
     
+    private func addShareButton(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapShare))
+    }
+    
     @objc
-    private func didTabShare() {
+    private func didTapShare() {
         print("Yohoo")
     }
     
